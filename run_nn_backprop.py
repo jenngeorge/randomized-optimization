@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import metrics 
 from helpers import algos, data_helper, plot_helper, model_helper
 
-def backprop(X, y, hn, lr, max_iters, title, filename, schedule=None):
+def backprop(X, y, hn, lr, max_iters, title, filename):
     nn = algos.NN(
         X, y,
         hidden_nodes = hn, 
@@ -12,10 +12,9 @@ def backprop(X, y, hn, lr, max_iters, title, filename, schedule=None):
         max_iters = max_iters,
         learning_rate = lr,
         clip_max = 50, 
-        max_attempts = 1000,
-        schedule=schedule
+        max_attempts = 1000
     )
-    train_acc, test_acc, log_loss_curves, fitted_weights, loss = nn.run(10)
+    train_acc, train_f1, test_acc, test_f1, log_loss_curves, loss = nn.run(10)
     # save curves
     fn = "results/{}.csv".format(filename)
     np.savetxt(fn, log_loss_curves, delimiter=",")
@@ -27,35 +26,24 @@ def backprop(X, y, hn, lr, max_iters, title, filename, schedule=None):
         max iters = {max_iters}
         learning rate = {lr}
     """.format(hn=hn, max_iters=max_iters, lr=lr)
-    model_helper.save_nn_report(title, filename, train_acc, test_acc, 
-        fitted_weights, loss, notes)
+    model_helper.save_nn_report(title, filename, 
+        train_acc, train_f1, test_acc, test_f1, loss, notes)
 
-def backprop_tuning(X, y, hn, schedule=None):
-    lrs = [0.0001, 0.0005, 0.001]
+def backprop_tuning(X, y, hn):
+    lrs = [0.00005, 0.0001, 0.0005, 0.001]
     for lr in lrs:
-        lr_str = str(lr).split(".")[1]
+        lr_str = str(lr).replace(".", "-")
         backprop(X, y, 
             hn=hn,
-            schedule=schedule,
-            lr=lr, max_iters=1000, 
-            title="NN backprop lr=0.{lr}, hidden nodes={hn}".format(lr=lr_str, hn=hn), 
-            filename="nn/backprop/hn{hn}lr{lr}{d}".format(lr=lr_str, hn=hn, d="d999" if schedule else ""))
+            lr=lr, max_iters=2000, 
+            title="NN backprop lr={lr}, hidden nodes={hn}".format(lr=lr_str, hn=hn), 
+            filename="nn/backprop/hn{hn}lr{lr}".format(lr=lr_str, hn=hn))
     
 if __name__ == "__main__":
-    # X, x_names, y = data_helper.get_avo_data("AveragePrice")
     X, x_names, y = data_helper.get_mushroom_data("odor")
     # try 2 hidden nodes 
     backprop_tuning(X, y, [2])
     # # try 4 hidden nodes 
     backprop_tuning(X, y, [4])
     
-    # going to use faster decay for faster learning
-    schedule = mlrose.GeomDecay(decay=0.9) # default is 0.99
-    backprop(X, y, 
-        hn=[4],
-        schedule=schedule,
-        lr=0.0001, max_iters=1000, 
-        title="NN backprop lr=0.{lr}".format(lr="0001", hn=[4]), 
-        filename="nn/backprop/hn{hn}lr{lr}{d}".format(lr="0001", hn=[4], d="d9" if schedule else ""))
-
     

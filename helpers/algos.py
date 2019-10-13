@@ -176,6 +176,8 @@ class NN:
         log_loss_curves = []
         train_acc = []
         test_acc = []
+        train_f1 = []
+        test_f1 = []
         fitted_weights = []
         loss = []
         for i in np.arange(n):
@@ -201,17 +203,19 @@ class NN:
             y_train_pred = model.predict(X_train)
             y_train_accuracy = metrics.accuracy_score(y_train, y_train_pred)
             train_acc.append(y_train_accuracy)
-            
+            train_f1.append(metrics.f1_score(y_train, y_train_pred, average='weighted'))
             y_test_pred = model.predict(X_test)
             y_test_accuracy = metrics.accuracy_score(y_test, y_test_pred)
             test_acc.append(y_test_accuracy)
+            test_f1.append(metrics.f1_score(y_test, y_test_pred, average='weighted'))
             
             log_loss_curve = np.array(model.fitness_curve) * -1
             log_loss_curves.append(log_loss_curve)
             # print(model.fitted_weights.shape)
-            fitted_weights.append(model.fitted_weights)
+            # fitted_weights.append(model.fitted_weights)
             loss.append(model.loss)
+            
         # print("train ", train_acc)
         # print("test", test_acc)
         # print(np.array(log_loss_curves).shape)
-        return train_acc, test_acc, np.array(log_loss_curves), fitted_weights, loss
+        return train_acc, train_f1, test_acc, test_f1, np.array(log_loss_curves), loss
