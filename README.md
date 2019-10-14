@@ -9,7 +9,7 @@ With conda, create and activate the environment from environment.yml like `conda
 Follow the prompt to activate the environment with `conda activate ro_env`
 
 ## running optimization problem experiments 
-run the corresponding file in this directory in the `ro_env` environment 
+run the corresponding file in this directory in the `ro_env` environment like `python3 run_one_max.py`
 a txt file containing info and performance metrics for each run will be written to `results/{problem abbreviation}`
 
 
