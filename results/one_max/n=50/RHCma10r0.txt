@@ -1,0 +1,18 @@
+RHC restarts=0
+
+        max iters = inf
+        max_attempts = 10
+        restarts = 0
+    
+
+best fitness mean: 42.3 
+
+best fitness std: 3.950949253027682 
+
+best fitnesses: 47.0, 41.0, 38.0, 43.0, 38.0, 44.0, 46.0, 35.0, 47.0, 44.0
+
+iterations mean: 70.8 
+
+iterations std: 22.4 
+
+iterations: 108, 80, 58, 76, 51, 66, 102, 33, 83, 51

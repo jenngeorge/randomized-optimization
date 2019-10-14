@@ -9,13 +9,11 @@ def rhc(X, y, lr, title, filename, schedule=None, max_iters=1000):
         hidden_nodes = [4],
         activation = 'relu',
         algorithm = 'random_hill_climb', 
-        schedule=schedule,
         max_iters = max_iters,
         learning_rate = lr,
-        clip_max = 50, 
-        max_attempts = 1000
+        clip_max = 50
     )
-    train_acc, test_acc, log_loss_curves, fitted_weights, loss = nn.run(10)
+    train_acc, train_f1, test_acc, test_f1, log_loss_curves, loss = nn.run(10)
     # save curves
     fn = "results/{}.csv".format(filename)
     np.savetxt(fn, log_loss_curves, delimiter=",")
@@ -27,25 +25,22 @@ def rhc(X, y, lr, title, filename, schedule=None, max_iters=1000):
         max iters = {max_iters}
         learning rate = {lr}
     """.format(max_iters=max_iters, lr=lr)
-    model_helper.save_nn_report(title, filename, train_acc, test_acc, 
-        fitted_weights, loss, notes)
+    model_helper.save_nn_report(title, filename, train_acc, train_f1, test_acc, test_f1, 
+        loss, notes)
 
-def rhc_tuning(X, y, schedule=None):
-    lrs = [0.0001, 0.001, 0.01]
+def rhc_tuning(X, y, max_iters=1000):
+    lrs = [0.01, 0.1]
     for lr in lrs:
         lr_str = str(lr).split(".")[1]
         rhc(X, y, 
-            lr=lr, max_iters=1000, 
-            schedule=schedule,
-            title="NN RHC lr=0.{lr} decay={d}".format(lr=lr_str, d=".9" if schedule else ".99"), 
-            filename="nn/rhc/lr{lr}{d}".format(lr=lr_str, d="d9" if schedule else ""))
+            lr=lr, max_iters=max_iters, 
+            title="NN RHC lr=0.{lr}".format(lr=lr_str), 
+            filename="nn/rhc/lr{lr}".format(lr=lr_str))
     
     
 if __name__ == "__main__":
     X, x_names, y = data_helper.get_mushroom_data("odor")
-    rhc_tuning(X, y)
-    rhc_tuning(X, y, schedule=mlrose.GeomDecay(decay=0.9))
-    # try different schedule 
+    rhc_tuning(X, y, max_iters=10000)
 
 
     

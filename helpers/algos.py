@@ -6,12 +6,11 @@ from helpers import data_helper
 # provides objects around the mlrose algos 
 class RHC:
     # random hill climb source: https://github.com/gkhayes/mlrose/blob/master/mlrose/algorithms.py#L114
-    def __init__(self, problem, max_attempts, max_iters, init_state, restarts=0):
+    def __init__(self, problem, max_attempts, max_iters, restarts=0):
         self.problem = problem 
         self.max_attempts  = max_attempts
         self.max_iters = max_iters 
         self.restarts = restarts
-        self.init_state = init_state
         
     def run(self, n=1):
         """
@@ -25,8 +24,7 @@ class RHC:
                 self.problem, 
                 max_attempts = self.max_attempts,
                 max_iters = self.max_iters,
-                restarts = self.restarts,
-                init_state = self.init_state, 
+                restarts = self.restarts, 
                 random_state = None, curve=True)
             best_fitness = np.max(learning_curve)
             best_fitnesses.append(best_fitness)
@@ -37,12 +35,11 @@ class RHC:
 
 class SA:
     # simulated annealing source: https://github.com/gkhayes/mlrose/blob/master/mlrose/algorithms.py#L225
-    def __init__(self, problem, schedule, max_attempts, max_iters, init_state):
+    def __init__(self, problem, schedule, max_attempts, max_iters):
         self.problem = problem 
         self.schedule = schedule 
         self.max_attempts = max_attempts
         self.max_iters = max_iters 
-        self.init_state = init_state
         
     def run(self, n=1):
         """
@@ -57,7 +54,6 @@ class SA:
                 schedule = self.schedule,
                 max_attempts = self.max_attempts, 
                 max_iters = self.max_iters,
-                init_state = self.init_state, 
                 random_state = None, curve=True)
             best_fitness = np.max(learning_curve)
             best_fitnesses.append(best_fitness)

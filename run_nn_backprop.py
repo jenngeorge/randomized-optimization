@@ -11,8 +11,7 @@ def backprop(X, y, hn, lr, max_iters, title, filename):
         algorithm = 'gradient_descent', 
         max_iters = max_iters,
         learning_rate = lr,
-        clip_max = 50, 
-        max_attempts = 1000
+        clip_max = 50
     )
     train_acc, train_f1, test_acc, test_f1, log_loss_curves, loss = nn.run(10)
     # save curves

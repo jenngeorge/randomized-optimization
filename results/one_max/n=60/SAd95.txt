@@ -1,0 +1,18 @@
+SA decay=0.95
+
+        max iters = inf
+        max_attempts = 10
+        schedule = GeomDecay with 0.95 decay
+    
+
+best fitness mean: 49.5 
+
+best fitness std: 4.410215414239989 
+
+best fitnesses: 51.0, 46.0, 53.0, 50.0, 53.0, 52.0, 51.0, 53.0, 48.0, 38.0
+
+iterations mean: 68.5 
+
+iterations std: 21.27557284775195 
+
+iterations: 66, 68, 91, 69, 105, 52, 71, 87, 48, 28

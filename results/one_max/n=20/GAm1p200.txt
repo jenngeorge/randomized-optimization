@@ -1,0 +1,19 @@
+GA m_prob=0.1 pop=200
+
+        max iters = inf
+        max_attempts = 10
+        pop size = 200
+        mutation prob = 0.1
+    
+
+best fitness mean: 18.2 
+
+best fitness std: 0.7483314773547883 
+
+best fitnesses: 18.0, 19.0, 18.0, 18.0, 19.0, 19.0, 17.0, 17.0, 18.0, 19.0
+
+iterations mean: 17.0 
+
+iterations std: 4.381780460041329 
+
+iterations: 18, 22, 22, 16, 23, 20, 11, 12, 12, 14

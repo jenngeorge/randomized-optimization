@@ -1,0 +1,19 @@
+MIMIC keep_pct=0.2 pop=200
+
+        max iters = inf
+        max_attempts = 10
+        pop size = 200
+        keep_pct = 0.2
+    
+
+best fitness mean: 53.0 
+
+best fitness std: 15.073154945133417 
+
+best fitnesses: 10.0, 57.0, 52.0, 62.0, 56.0, 54.0, 62.0, 65.0, 50.0, 62.0
+
+iterations mean: 17.3 
+
+iterations std: 3.551056180912941 
+
+iterations: 12, 17, 13, 17, 16, 17, 21, 25, 16, 19
